@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Health Plugin
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="full-dim" *ngIf="!platformReady">
+    <ion-spinner></ion-spinner>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button color="primary" expand="full" (click)="getSteps()">Get Steps Values</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list-header *ngIf="!hasData">No data to show</ion-list-header>
+  <ion-list-header *ngIf="hasData">This data is from iOS HealthKit</ion-list-header>
+  <ion-list>
+    <ion-item *ngFor="let item of stepsArray">
+      <ion-row class="row-item">
+        <ion-col>{{item.date | date: 'dd/MM/yyyy'}} - </ion-col>
+        <ion-col>{{item.count}} steps</ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button color="primary" expand="full" (click)="getAggregatedSteps()">Get Steps Agregate</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list>
+    <ion-item *ngFor="let item of stepsAggregated">
+      <ion-row>Week of {{item.start | date: 'dd/MM/yyyy'}}-{{item.end | date: 'dd/MM/yyyy'}}</ion-row>
+      <ion-row class="row-item">
+        <ion-col>{{item.count}} steps</ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+</ion-content>
